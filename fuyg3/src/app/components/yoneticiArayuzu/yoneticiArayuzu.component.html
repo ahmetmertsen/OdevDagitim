@@ -1,0 +1,92 @@
+<button class="btn btn-outline-primary" (click)="OturumKapat()">Oturum Kapat</button>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-8">
+      <h4>Öğrenciler</h4>
+      <table class="table table-striped table-hover">
+        <thead>
+          <th>Adı Soyadı</th>
+          <th>Öğrenci No</th>
+          <th>Kayıt Tarihi</th>
+          <th>Güncelleme Tarihi</th>
+          <td>Düzenle</td>
+          <td>Sil</td>
+        </thead>
+        <tbody>
+          <tr *ngFor="let kayit of kayitlar">
+            <td>{{kayit.adsoyad}}</td>
+            <td>{{kayit.tel}}</td>
+            <td>{{kayit.kayTarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td>{{kayit.duzTarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td><button class="btn btn-outline-warning" (click)="KayitDuzenle(kayit)">Düzenle</button></td>
+            <td><button class="btn btn-outline-danger" (click)="KayitSil(kayit)">Sil</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <h4>Öğrenci Ekle Düzenle</h4>
+      <hr>
+      <form #frm="ngForm" (submit)="Kaydet()">
+        <div class="form-group">
+          <label>Adı Soyadı</label>
+          <input type="text" class="form-control" name="adsoyad" [(ngModel)]="secKayit.adsoyad" required>
+          <input type="hidden" class="form-control" name="key" [(ngModel)]="secKayit.key" >
+        </div>
+        <div class="form-group">
+          <label>Öğrenci No</label>
+          <input type="text" class="form-control" name="tel" [(ngModel)]="secKayit.tel" required>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Kaydet" class="btn btn-outline-success" [disabled]="frm.invalid">
+        </div>
+      </form>
+      <button class="btn btn-outline-danger" (click)="Vazgec()">Vazgeç</button>
+      <div [ngClass]="sonuc.islem ? 'alert alert-succes':'alert alert-danger'" *ngIf="sonuc.mesaj?.length">{{sonuc.mesaj}}</div>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="container mt-5">
+  <div class="row">
+  <div class="col-md-8">
+    <h4>Ödevler</h4>
+    <table class="table table-striped table-hover">
+      <thead>
+        <th>Ödev İd</th>
+        <th>Ödev</th>
+        <td>Düzenle</td>
+        <td>Sil</td>
+      </thead>
+      <tbody>
+        <tr *ngFor="let odev of odevler">
+          <td>{{odev.odevid}}</td>
+          <td>{{odev.odev}}</td>
+          <td><button class="btn btn-outline-warning" (click)="OdevDuzenle(odev)">Düzenle</button></td>
+          <td><button class="btn btn-outline-danger" (click)="OdevSil(odev)">Sil</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4 mt-2">
+    <h4>Ödev Ekle Düzenle</h4>
+    <hr>
+    <form #frm2="ngForm" (submit)="OdevKaydet()">
+      <div class="form-group">
+        <label>Ödev İd</label>
+        <input type="text" class="form-control" name="odevid" [(ngModel)]="secOdev.odevid" required>
+        <input type="hidden" class="form-control" name="key" [(ngModel)]="secOdev.key" >
+      </div>
+      <div class="form-group">
+        <label>Ödev</label>
+        <input type="text" class="form-control" name="odev" [(ngModel)]="secOdev.odev" required>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-outline-success" [disabled]="frm2.invalid">
+      </div>
+    </form>
+    <button class="btn btn-outline-danger" (click)="odevVazgec()">Vazgeç</button>
+    <div [ngClass]="sonuc2.islem2 ? 'alert alert-succes':'alert alert-danger'" *ngIf="sonuc2.mesaj2?.length">{{sonuc2.mesaj2}}</div>
+</div>
+</div>
+</div>
+
+
